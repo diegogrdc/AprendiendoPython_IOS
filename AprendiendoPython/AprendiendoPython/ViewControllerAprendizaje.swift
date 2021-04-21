@@ -7,21 +7,24 @@
 
 import UIKit
 
-class ViewControllerAprendizaje: UIViewController {
+class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var codeView: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var fwdBtn: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
     
     var arr = [
         Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "    s = first + second", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "    return s", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "\n", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "\n", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "    a = ", hasTF: true, tf: nil, lb: nil),
         Linea(texto: "    b = ", hasTF: true, tf: nil, lb: nil),
         Linea(texto: "    c = suma(a, b)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "\n", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
     ]
     
@@ -34,25 +37,23 @@ class ViewControllerAprendizaje: UIViewController {
         Paso(numLinea: 0, op: [["first","=","var6"], ["second","=","var7"]]),
         Paso(numLinea: 1, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
         Paso(numLinea: 2, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","+","var6", "var7"]]),
+        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","+","var6", "var7"]])
     ]
     
+    var vars: [String] = []
+    
     var currStep = -1
+    
+    var isInEdit = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        /* let vs = UIStackView()
-        vs.axis = .vertical
-        vs.alignment = .center
-        vs.sizeToFit() */
-        
         for i in 0...arr.count - 1 {
-            
             
             arr[i].lb = UILabel(frame: .zero);
             arr[i].lb!.text = arr[i].texto
+            arr[i].lb!.font = UIFont.boldSystemFont(ofSize: 20)
             arr[i].lb!.textColor = .black
             arr[i].lb!.contentMode = .scaleAspectFit
             arr[i].lb!.translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +76,9 @@ class ViewControllerAprendizaje: UIViewController {
                 arr[i].tf!.backgroundColor = .white
                 arr[i].tf!.contentMode = .scaleAspectFit
                 arr[i].tf!.translatesAutoresizingMaskIntoConstraints = false
+                arr[i].tf!.text = String(getRandomNum())
+                arr[i].tf!.isEnabled = false
+                arr[i].tf!.backgroundColor = .clear
                 codeView.addSubview(arr[i].tf!)
                 NSLayoutConstraint.activate([
                     arr[i].tf!.leadingAnchor.constraint(equalTo: arr[i].lb!.trailingAnchor, constant: 20),
@@ -89,16 +93,18 @@ class ViewControllerAprendizaje: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func getRandomNum() -> Int {
+        return Int.random(in: 1...100)
+    }
     
-    @IBAction func simBack(_ sender: UIButton) {
-        if currStep - 1 >= 0 {
-            currStep -= 1
-            
-            // Cambiar fondo
-            arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
-            if currStep + 1 < pasos.count {
-                arr[pasos[currStep + 1].numLinea].lb!.backgroundColor = .clear
+    func resetStepVars() {
+        if(currStep != -1){
+            vars = []
+            for p in pasos[currStep].op {
+                print(p[0] + ": " + getOpRes(p: p))
+                vars.append(p[0] + ": " + getOpRes(p: p))
             }
+            tableView.reloadData()
         }
     }
     
@@ -126,6 +132,21 @@ class ViewControllerAprendizaje: UIViewController {
         }
     }
     
+    @IBAction func simBack(_ sender: UIButton) {
+        if currStep - 1 >= 0 {
+            currStep -= 1
+            
+            // Cambiar fondo
+            arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
+            if currStep + 1 < pasos.count {
+                arr[pasos[currStep + 1].numLinea].lb!.backgroundColor = .clear
+            }
+            
+            // Mostrar variables
+            resetStepVars()
+        }
+    }
+    
     @IBAction func simFwd(_ sender: UIButton) {
         if currStep + 1 < pasos.count {
             currStep += 1
@@ -137,16 +158,78 @@ class ViewControllerAprendizaje: UIViewController {
             }
             
             // Mostrar variables
-            for p in pasos[currStep].op {
-                print(p[0] + ": " + getOpRes(p: p))
-                
-            }
-            
+            resetStepVars()
         }
     }
     
+    @IBAction func editTF(_ sender: UIButton) {
+        var isValid = true
+        if isInEdit {
+            for i in 0...arr.count - 1 {
+                if arr[i].hasTF {
+                    if let _ = Int(arr[i].tf!.text!) {}
+                    else {
+                        isValid = false
+                        break
+                    }
+                }
+            }
+            if(isValid) {
+                for i in 0...arr.count - 1 {
+                    if arr[i].hasTF {
+                        arr[i].tf!.isEnabled = false
+                        arr[i].tf!.backgroundColor = .clear
+                    }
+                }
+                isInEdit = false
+                sender.setTitle("Editar", for: .normal)
+                fwdBtn.isHidden = false
+                backBtn.isHidden = false
+                resetStepVars()
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Los datos tienen que ser numeros enteros", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
+        } else {
+            for i in 0...arr.count - 1 {
+                if arr[i].hasTF {
+                    arr[i].tf!.isEnabled = true
+                    arr[i].tf!.backgroundColor = .white
+                }
+            }
+            isInEdit = true
+            sender.setTitle("Guardar", for: .normal)
+            fwdBtn.isHidden = true
+            backBtn.isHidden = true
+        }
+    }
+    
+    @IBAction func generateRandomTF(_ sender: Any) {
+        for i in 0...arr.count - 1 {
+            if arr[i].hasTF {
+                arr[i].tf!.text = String(getRandomNum())
+            }
+        }
+        resetStepVars()
+    }
+    
+    
     @IBAction func returnMenu(segue: UIStoryboardSegue) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return vars.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        print(vars[indexPath.row])
+        cell.textLabel?.text = vars[indexPath.row]
+        cell.textLabel?.font = cell.textLabel?.font.withSize(30)
+        return cell
     }
     
     /*
