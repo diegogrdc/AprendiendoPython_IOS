@@ -72,11 +72,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zh-op-SXz">
-                                <rect key="frame" x="105" y="68" width="875" height="675"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.90980392156862744" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJw-OH-kAc">
                                 <rect key="frame" x="551" y="780" width="429" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -117,11 +112,19 @@
                                     <action selector="returnMenuWithSegue:" destination="twR-aF-YjU" eventType="touchUpInside" id="X8v-uc-pnI"/>
                                 </connections>
                             </button>
+                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zh-op-SXz">
+                                <rect key="frame" x="105" y="68" width="844" height="598"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.90980392156862744" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y1a-Oo-Rpp"/>
                         <color key="backgroundColor" red="0.18823529411764706" green="0.41176470588235292" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zna-VL-SAD"/>
+                    <connections>
+                        <outlet property="codeView" destination="4zh-op-SXz" id="vWr-1F-Kp6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q7w-UC-td6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,10 +153,37 @@
                                     <action selector="returnMenuWithSegue:" destination="52q-AD-LrM" eventType="touchUpInside" id="z2k-60-rAo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qw0-aN-spi">
+                                <rect key="frame" x="1040" y="488" width="91" height="192"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.90980392160000001" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="150"/>
+                                <state key="normal" title="&lt;">
+                                    <color key="titleColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="simBack:" destination="52q-AD-LrM" eventType="touchUpInside" id="UWc-8K-hMS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVx-3r-AyL">
+                                <rect key="frame" x="1193" y="488" width="91" height="192"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.90980392160000001" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="150"/>
+                                <state key="normal" title="&gt;">
+                                    <color key="titleColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="simFwd:" destination="52q-AD-LrM" eventType="touchUpInside" id="zwQ-yn-fuh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Rbh-Iq-n2F"/>
                         <color key="backgroundColor" red="0.18823529411764706" green="0.41176470588235292" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="codeView" destination="MnI-6e-ziG" id="Jmq-Jj-BQV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3e-Lp-zSt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
