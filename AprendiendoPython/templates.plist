@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   templates.plist
+   AprendiendoPython
+
+   Created by Domene on 21/04/21.
+   Copyright (c) 2021 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<array>
+    <dict>
+        <key>id</key>
+        <integer>0</integer>
+        <key>title</key>
+        <string>suma_simple</string>
+        <key>topic</key>
+        <string>functions</string>
+        
+        <key>code</key>
+        <array>
+            <dict>
+                <key>line</key>
+                <string>def suma(first, second):</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    s = first + second</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    return s</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>def main():</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    a = </string>
+                <key>hasTf</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    b = </string>
+                <key>hasTf</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    c = suma(a, b)</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>main()</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+        </array>
+        
+        <key>simulation></key>
+        <array>
+            <dict>
+                <key>line</key>
+                <integer>10</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>5</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>6</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>a</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>7</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>a</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                    <array>
+                        <string>b</string>
+                        <string>=</string>
+                        <string>var7</string>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>8</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>a</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                    <array>
+                        <string>b</string>
+                        <string>=</string>
+                        <string>var7</string>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>0</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>first</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                    <array>
+                        <string>second</string>
+                        <string>=</string>
+                        <string>var7</string>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>1</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>first</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                    <array>
+                        <string>second</string>
+                        <string>=</string>
+                        <string>var7</string>
+                    </array>
+                    <array>
+                        <string>s</string>
+                        <string>+</string>
+                        <string>var6</string>
+                        <string>var7</string>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>2</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>first</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                    <array>
+                        <string>second</string>
+                        <string>=</string>
+                        <string>var7</string>
+                    </array>
+                    <array>
+                        <string>s</string>
+                        <string>+</string>
+                        <string>var6</string>
+                        <string>var7</string>
+                    </array>
+                </array>
+                
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>8</integer>
+                
+                <key>operation</key>
+                <array>
+                    <array>
+                        <string>a</string>
+                        <string>=</string>
+                        <string>var6</string>
+                    </array>
+                    <array>
+                        <string>b</string>
+                        <string>=</string>
+                        <string>var7</string>
+                    </array>
+                    <array>
+                        <string>c</string>
+                        <string>+</string>
+                        <string>var6</string>
+                        <string>var7</string>
+                    </array>
+                </array>
+                
+            </dict>
+        </array>
+        
+    </dict>
+</array>
+</plist>
