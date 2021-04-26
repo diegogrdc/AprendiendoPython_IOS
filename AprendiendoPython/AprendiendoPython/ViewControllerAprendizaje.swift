@@ -14,31 +14,8 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var fwdBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
     
-    var arr = [
-        Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    s = first + second", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    return s", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    a = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    b = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    c = suma(a, b)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
-    ]
-    
-    var pasos = [
-        Paso(numLinea: 10, op: []),
-        Paso(numLinea: 5, op: []),
-        Paso(numLinea: 6, op: [["a","=","var6"]]),
-        Paso(numLinea: 7, op: [["a","=","var6"], ["b","=","var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"]]),
-        Paso(numLinea: 0, op: [["first","=","var6"], ["second","=","var7"]]),
-        Paso(numLinea: 1, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
-        Paso(numLinea: 2, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","+","var6", "var7"]])
-    ]
+    var arr: [Linea] = []
+    var pasos: [Paso] = []
     
     var vars: [String] = []
     
@@ -49,6 +26,9 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let templates = configValues.getPlist()
+        chooseTemplate(withTemplates: templates)
+                
         for i in 0...arr.count - 1 {
             
             arr[i].lb = UILabel(frame: .zero);
@@ -101,7 +81,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         if(currStep != -1){
             vars = []
             for p in pasos[currStep].op {
-                print(p[0] + ": " + getOpRes(p: p))
+                // print(p[0] + ": " + getOpRes(p: p))
                 vars.append(p[0] + ": " + getOpRes(p: p))
             }
             tableView.reloadData()
@@ -226,12 +206,28 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        print(vars[indexPath.row])
+        // print(vars[indexPath.row])
         cell.textLabel?.text = vars[indexPath.row]
         cell.textLabel?.font = cell.textLabel?.font.withSize(30)
         return cell
     }
     
+    func chooseTemplate(withTemplates: [Template]) {
+        let templateId = Int.random(in: 0..<withTemplates.count)
+        
+        for code in withTemplates[templateId].code {
+            arr.append(Linea(texto: code.line, hasTF: code.hasTf, tf: nil, lb: nil))
+        }
+        
+        for simulation in withTemplates[templateId].simulation {
+            if simulation.operation[0].count == 0 {
+                pasos.append(Paso(numLinea: simulation.line, op: []))
+            } else {
+                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation))
+            }
+        }
+    }
+        
     /*
     // MARK: - Navigation
 
