@@ -41,7 +41,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         Paso(numLinea: 1, op: [["first","=","var6"], ["second","=","var7"], ["s", "var6", "+", "var7"]]),
         Paso(numLinea: 2, op: [["first","=","var6"], ["second","=","var7"], ["s", "var6", "+", "var7"]]),
         Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","var6","+", "var7"]]),*/
-        Paso(numLinea: 8, op: [["a","var6","*", "3"], ["b","var7","-","1"], ["c","var6","*", "3", "-", "1", "+", "var7"]])
+        Paso(numLinea: 8, op: [["a", ["var6","*", "3"]], ["b", ["var7","-","1"]], ["c", [["var6","*", "3"], "*", ["var7", "-", "1"]]]])
     ]
     
     var vars: [String] = []
@@ -109,7 +109,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
             vars = []
             for p in pasos[currStep].op {
                 // print(p[0] + ": " + getOpRes(p: p))
-                vars.append(p[0] + ": " + getOpRes(p: p))
+                vars.append("\(p[0]): \(getOpRes(p: p[1]))")
             }
             tableView.reloadData()
         }
@@ -124,33 +124,41 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    func getOpRes(p : [String]) -> String {
-        var acum = 0
-        switch p[2] {
-            case "+":
-                acum = getNumber(num: p[1]) + getNumber(num: p[3])
-            case "-":
-                acum = getNumber(num: p[1]) - getNumber(num: p[3])
-            case "*":
-                acum = getNumber(num: p[1]) * getNumber(num: p[3])
-            case "=":
-                return String(getNumber(num: p[1]))
-            default:
-                return "1"
-        }
-        for index in stride(from: 4, to: p.count, by: 2){
-            switch p[index] {
+    func getOpRes(p : Any) -> String {
+        if let pArr = p as? [Any] {
+            var acum = 0
+            switch "\(pArr[1])" {
                 case "+":
-                    acum += getNumber(num: p[index+1])
+                    acum = getNumber(num: getOpRes(p: pArr[0])) + getNumber(num: getOpRes(p: pArr[2]))
                 case "-":
-                    acum -= getNumber(num: p[index+1])
+                    acum = getNumber(num: getOpRes(p: pArr[0])) - getNumber(num: getOpRes(p: pArr[2]))
                 case "*":
-                    acum *= getNumber(num: p[index+1])
+                    acum = getNumber(num: getOpRes(p: pArr[0])) * getNumber(num: getOpRes(p: pArr[2]))
+                case "/":
+                    acum = getNumber(num: getOpRes(p: pArr[0])) / getNumber(num: getOpRes(p: pArr[2]))
                 default:
                     return "1"
             }
+            for index in stride(from: 3, to: pArr.count, by: 2){
+                switch "\(pArr[index])" {
+                    case "+":
+                        acum += getNumber(num: getOpRes(p: pArr[index+1]))
+                    case "-":
+                        acum -= getNumber(num: getOpRes(p: pArr[index+1]))
+                    case "*":
+                        acum *= getNumber(num: getOpRes(p: pArr[index+1]))
+                    case "/":
+                        acum /= getNumber(num: getOpRes(p: pArr[index+1]))
+                    default:
+                        return "1"
+                }
+            }
+            return String(acum)
+        } else if let pStr = p as? String {
+            return String(getNumber(num: pStr))
+        } else {
+            return "1"
         }
-        return String(acum)
     }
     
     @IBAction func simBack(_ sender: UIButton) {

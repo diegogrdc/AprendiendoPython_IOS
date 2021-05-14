@@ -16,7 +16,8 @@ struct Linea {
 
 struct Paso {
     var numLinea : Int
-    var op : [[String]]
+    var op : [[Any]]
+    var cond : [Any]?
 }
 
 class ViewControllerPractica: UIViewController {
@@ -127,7 +128,7 @@ class ViewControllerPractica: UIViewController {
     
     @IBAction func btRevisar(_ sender: UIButton) {
         
-        if let _ = Int(tfPregunta1.text!) {
+        /*if let _ = Int(tfPregunta1.text!) {
             if tfPregunta1.text == getOpRes(p: pasos[pasos.count-1].op[0]){
                 tfPregunta1.textColor = .green
             }
@@ -155,7 +156,7 @@ class ViewControllerPractica: UIViewController {
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
-        }
+        }*/
     }
     
     
