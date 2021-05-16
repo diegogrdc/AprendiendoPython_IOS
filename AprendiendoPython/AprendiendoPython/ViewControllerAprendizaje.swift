@@ -14,35 +14,68 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var fwdBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
     
+    var cont = 0
+    
     /*var arr: [Linea] = []
     var pasos: [Paso] = []*/
     
     var arr = [
-        Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    s = first + second", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    return s", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    while n > 0:", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    a = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    b = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    c = suma(a, b)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
+        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
     ]
     
     var pasos = [
         Paso(numLinea: 10, op: []),
-        Paso(numLinea: 5, op: []),
-        /*Paso(numLinea: 6, op: [["a","=","var6"]]),
-        Paso(numLinea: 7, op: [["a","=","var6"], ["b","=","var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"]]),
-        Paso(numLinea: 0, op: [["first","=","var6"], ["second","=","var7"]]),
-        Paso(numLinea: 1, op: [["first","=","var6"], ["second","=","var7"], ["s", "var6", "+", "var7"]]),
-        Paso(numLinea: 2, op: [["first","=","var6"], ["second","=","var7"], ["s", "var6", "+", "var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","var6","+", "var7"]]),*/
-        Paso(numLinea: 8, op: [["a", ["var6","*", "3"]], ["b", ["var7","-","1"]], ["c", [["var6","*", "3"], "*", ["var7", "-", "1"]]]])
+        Paso(numLinea: 6, op: []),
+        Paso(numLinea: 7, op: [["x","var7"]]),
+        Paso(numLinea: 8, op: [["x","var7"]]),
+        Paso(numLinea: 0, op: [["n","var7"]]),
+        Paso(numLinea: 1, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[["var7","-",["10", "*", "cont"]],">","0"], [6, 6, 7]]),
+        Paso(numLinea: 2, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[], [5, 5, 0]]),
+        Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
+        Paso(numLinea: 8, op: [["x",["var7","-",["10", "*", "cont"]]]]),
     ]
+    
+    /*
+     
+     var arr = [
+         Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "    s = first + second", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "    return s", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "    a = ", hasTF: true, tf: nil, lb: nil),
+         Linea(texto: "    b = ", hasTF: true, tf: nil, lb: nil),
+         Linea(texto: "    c = suma(a, b)", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+         Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+     ]
+     
+     var pasos = [
+         Paso(numLinea: 10, op: []),
+         Paso(numLinea: 5, op: []),
+         Paso(numLinea: 6, op: [["a","var6"]]),
+         Paso(numLinea: 7, op: [["a","var6"], ["b","var7"]]),
+         Paso(numLinea: 8, op: [["a","var6"], ["b","var7"]]),
+         Paso(numLinea: 0, op: [["first","var6"], ["second","var7"]]),
+         Paso(numLinea: 1, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
+         Paso(numLinea: 2, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
+         Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
+     ]
+     
+     */
+    
+    
     
     var vars: [String] = []
     
@@ -115,10 +148,34 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    func evalCond(st : [Any]) -> Bool {
+        if st.count != 3 {
+            return true
+        }
+        let fst = getOpRes(p: st[0])
+        let snd = getOpRes(p: st[2])
+        switch "\(st[1])" {
+            case ">":
+                return fst > snd
+            case "<":
+                return fst < snd
+            case ">=":
+                return fst >= snd
+            case "<=":
+                return fst <= snd
+            case "==":
+                return fst == snd
+            default:
+                return true
+        }
+    }
+    
     func getNumber(num: String) -> Int {
         if num.hasPrefix("var") {
             let num2 = num.dropFirst(3)
             return Int(arr[Int(num2)!].tf!.text!)!
+        } else if num.hasPrefix("cont") {
+            return cont
         } else {
             return Int(num)!
         }
@@ -163,12 +220,33 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func simBack(_ sender: UIButton) {
         if currStep - 1 >= 0 {
-            currStep -= 1
-            
-            // Cambiar fondo
-            arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
-            if currStep + 1 < pasos.count {
-                arr[pasos[currStep + 1].numLinea].lb!.backgroundColor = .clear
+            if pasos[currStep].cond != nil {
+                
+                // Quita color paso actual
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .clear
+                
+                if (pasos[currStep].cond![0] as! [Any]).count > 0 && cont == 0 {
+                    currStep -= 1
+                } else {
+                    let bef = pasos[currStep].cond![1] as! [Int]
+                    currStep = bef[0];
+                    if (pasos[currStep].cond![0] as! [Any]).count > 0 {
+                        cont -= 1
+                    }
+                }
+                
+                // Pon color a nuevo paso
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
+            }
+            else {
+                currStep -= 1
+                
+                // Cambiar fondo
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
+                if currStep + 1 < pasos.count {
+                    arr[pasos[currStep + 1].numLinea].lb!.backgroundColor = .clear
+                }
+                
             }
             
             // Mostrar variables
@@ -178,12 +256,32 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func simFwd(_ sender: UIButton) {
         if currStep + 1 < pasos.count {
-            currStep += 1
-            
-            // Cambiar fondo
-            arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
-            if currStep > 0 {
-                arr[pasos[currStep - 1].numLinea].lb!.backgroundColor = .clear
+            if currStep > -1 && pasos[currStep].cond != nil {
+                
+                // Quita color paso actual
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .clear
+                
+                if evalCond(st: pasos[currStep].cond![0] as! [Any]) {
+                    let nxt = pasos[currStep].cond![1] as! [Int]
+                    cont += (pasos[currStep].cond![0] as! [Any]).count > 0 ? 1 : 0
+                    currStep = nxt[1]
+                }
+                else {
+                    // Exit
+                    let nxt = pasos[currStep].cond![1] as! [Int]
+                    currStep = nxt[2]
+                }
+                
+                // Pon color a nuevo paso
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
+            }
+            else {
+                currStep += 1
+                // Cambiar fondo
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
+                if currStep > 0 {
+                    arr[pasos[currStep - 1].numLinea].lb!.backgroundColor = .clear
+                }
             }
             
             // Mostrar variables
