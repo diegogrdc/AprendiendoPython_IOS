@@ -15,10 +15,42 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var backBtn: UIButton!
     
     var cont = 0
+    var if_return = 0
     
     /*var arr: [Linea] = []
     var pasos: [Paso] = []*/
     
+    var arr = [
+        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    if n > 0:", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "        n = n + 10", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    else:", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
+        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+    ]
+    
+    var pasos = [
+        Paso(numLinea: 12, op: []),
+        Paso(numLinea: 8, op: []),
+        Paso(numLinea: 9, op: [["x","var9"]]),
+        Paso(numLinea: 10, op: [["x","var9"]]),
+        Paso(numLinea: 0, op: [["n","var9"]]),
+        Paso(numLinea: 1, op: [["n","var9"]], cond: [["var9",">","0"], 6, 8]),
+        Paso(numLinea: 2, op: [["n",["var9","+","10"]]], cond: [[], 9, 5]),
+        Paso(numLinea: 3, op: [], cond: [[], 8, 5]),
+        Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
+        Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
+        Paso(numLinea: 10, op: [["x",["var9","+",["10", "*", "if_return"]]]]),
+    ]
+    
+    /*
     var arr = [
         Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "    while n > 0:", hasTF: false, tf: nil, lb: nil),
@@ -44,7 +76,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
         Paso(numLinea: 8, op: [["x",["var7","-",["10", "*", "cont"]]]]),
     ]
-    
+    */
     /*
      
      var arr = [
@@ -176,7 +208,9 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
             return Int(arr[Int(num2)!].tf!.text!)!
         } else if num.hasPrefix("cont") {
             return cont
-        } else {
+        } else if num.hasPrefix("if_return") {
+            return if_return
+        }else {
             return Int(num)!
         }
     }
@@ -225,16 +259,32 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
                 // Quita color paso actual
                 arr[pasos[currStep].numLinea].lb!.backgroundColor = .clear
                 
-                if (pasos[currStep].cond![0] as! [Any]).count > 0 && cont == 0 {
-                    currStep -= 1
+                // Si entra es while si no es if
+                if pasos[currStep].cond![1] is Array<Int> {
+                    if (pasos[currStep].cond![0] as! [Any]).count > 0 && cont == 0 {
+                        currStep -= 1
+                    } else {
+                        let bef = pasos[currStep].cond![1] as! [Int]
+                        currStep = bef[0];
+                        if (pasos[currStep].cond![0] as! [Any]).count > 0 {
+                            cont -= 1
+                        }
+                    }
                 } else {
-                    let bef = pasos[currStep].cond![1] as! [Int]
-                    currStep = bef[0];
-                    if (pasos[currStep].cond![0] as! [Any]).count > 0 {
-                        cont -= 1
+                    if pasos[currStep].cond!.count == 4 {
+                        if if_return == 1 {
+                            currStep = pasos[currStep].cond![2] as! Int
+                        } else if if_return == -1 {
+                            currStep = pasos[currStep].cond![3] as! Int
+                        }
+                    }
+                    else if (pasos[currStep].cond![0] as! [Any]).count > 0 {
+                        currStep -= 1
+                    } else {
+                        let bef = pasos[currStep].cond![2] as! Int
+                        currStep = bef
                     }
                 }
-                
                 // Pon color a nuevo paso
                 arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
             }
@@ -261,15 +311,38 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
                 // Quita color paso actual
                 arr[pasos[currStep].numLinea].lb!.backgroundColor = .clear
                 
-                if evalCond(st: pasos[currStep].cond![0] as! [Any]) {
-                    let nxt = pasos[currStep].cond![1] as! [Int]
-                    cont += (pasos[currStep].cond![0] as! [Any]).count > 0 ? 1 : 0
-                    currStep = nxt[1]
-                }
-                else {
-                    // Exit
-                    let nxt = pasos[currStep].cond![1] as! [Int]
-                    currStep = nxt[2]
+                
+                // Si entra es while si no es if
+                if pasos[currStep].cond![1] is Array<Int> {
+                    if evalCond(st: pasos[currStep].cond![0] as! [Any]) {
+                        let nxt = pasos[currStep].cond![1] as! [Int]
+                        cont += (pasos[currStep].cond![0] as! [Any]).count > 0 ? 1 : 0
+                        currStep = nxt[1]
+                    }
+                    else {
+                        // Exit
+                        let nxt = pasos[currStep].cond![1] as! [Int]
+                        currStep = nxt[2]
+                    }
+                    
+                } else {
+                    print(evalCond(st: pasos[currStep].cond![0] as! [Any]))
+                    print(currStep)
+                    if evalCond(st: pasos[currStep].cond![0] as! [Any]) {
+                        let nxt = pasos[currStep].cond![1] as! Int
+                        if (pasos[currStep].cond![0] as! [Any]).count != 0 {
+                            if_return = 1
+                        }
+                        currStep = nxt
+                    } else {
+                        let nxt = pasos[currStep].cond![2] as! Int
+                        if (pasos[currStep].cond![0] as! [Any]).count != 0 {
+                            if_return = -1
+                        }
+                        currStep = nxt
+                    }
+                    print(currStep)
+                    
                 }
                 
                 // Pon color a nuevo paso
