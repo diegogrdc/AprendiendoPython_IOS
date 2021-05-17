@@ -20,11 +20,19 @@ struct Paso {
     var cond : [Any]?
 }
 
+struct Pregunta {
+    var texto : String
+    var tf : UITextField?
+    var lb : UILabel?
+}
+
 class ViewControllerPractica: UIViewController {
     
     @IBOutlet weak var codeView: UIView!
-    @IBOutlet weak var tfPregunta1: UITextField!
-    @IBOutlet weak var tfPregunta2: UITextField!
+    @IBOutlet weak var qView: UIView!
+    
+    var cont = 0
+    var if_return = 0
     
     var arr = [
         Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
@@ -51,6 +59,76 @@ class ViewControllerPractica: UIViewController {
         Paso(numLinea: 2, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
         Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","+","var6", "var7"]])
     ]
+    
+    var preguntas = [
+        Pregunta(texto: "a = ?", tf: nil, lb: nil),
+        Pregunta(texto: "b = ?", tf: nil, lb: nil),
+        Pregunta(texto: "c = ?", tf: nil, lb: nil)
+    ]
+    
+    /*var arr = [
+        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    while n > 0:", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
+        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+    ]
+    
+    var pasos = [
+        Paso(numLinea: 10, op: []),
+        Paso(numLinea: 6, op: []),
+        Paso(numLinea: 7, op: [["x","var7"]]),
+        Paso(numLinea: 8, op: [["x","var7"]]),
+        Paso(numLinea: 0, op: [["n","var7"]]),
+        Paso(numLinea: 1, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[["var7","-",["10", "*", "cont"]],">","0"], [6, 6, 7]]),
+        Paso(numLinea: 2, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[], [5, 5, 0]]),
+        Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
+        Paso(numLinea: 8, op: [["x",["var7","-",["10", "*", "cont"]]]]),
+    ]
+    
+    var preguntas = [
+        Pregunta(texto: "x = ?", tf: nil, lb: nil)
+    ]*/
+    
+    /*var arr = [
+        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    if n > 0:", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "        n = n + 10", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    else:", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
+        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+    ]
+    
+    var pasos = [
+        Paso(numLinea: 12, op: []),
+        Paso(numLinea: 8, op: []),
+        Paso(numLinea: 9, op: [["x","var9"]]),
+        Paso(numLinea: 10, op: [["x","var9"]]),
+        Paso(numLinea: 0, op: [["n","var9"]]),
+        Paso(numLinea: 1, op: [["n","var9"]], cond: [["var9",">","0"], 6, 8]),
+        Paso(numLinea: 2, op: [["n",["var9","+","10"]]], cond: [[], 9, 5]),
+        Paso(numLinea: 3, op: [], cond: [[], 8, 5]),
+        Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
+        Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
+        Paso(numLinea: 10, op: [["x",["var9","+",["10", "*", "if_return"]]]]),
+    ]
+    
+    var preguntas = [
+        Pregunta(texto: "x = ?", tf: nil, lb: nil)
+    ]*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +172,41 @@ class ViewControllerPractica: UIViewController {
             }
             
         }
+        
+        for i in 0...preguntas.count - 1 {
+            
+            preguntas[i].lb = UILabel(frame: .zero);
+            preguntas[i].lb!.text = preguntas[i].texto
+            preguntas[i].lb!.font = UIFont.boldSystemFont(ofSize: 20)
+            preguntas[i].lb!.textColor = .black
+            preguntas[i].lb!.contentMode = .scaleAspectFit
+            preguntas[i].lb!.translatesAutoresizingMaskIntoConstraints = false
+            preguntas[i].lb!.textAlignment = NSTextAlignment.center
+            qView.addSubview(preguntas[i].lb!)
+            if i == 0 {
+                NSLayoutConstraint.activate([
+                    preguntas[i].lb!.topAnchor.constraint(equalTo: qView.topAnchor, constant: 30),
+                    preguntas[i].lb!.leadingAnchor.constraint(equalTo: qView.leadingAnchor, constant: 25)
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    preguntas[i].lb!.topAnchor.constraint(equalTo: preguntas[i - 1].lb!.bottomAnchor, constant: 10),
+                    preguntas[i].lb!.leadingAnchor.constraint(equalTo: qView.leadingAnchor, constant: 25)
+                ])
+            }
+            
+            preguntas[i].tf = UITextField()
+            preguntas[i].tf!.backgroundColor = .white
+            preguntas[i].tf!.contentMode = .scaleAspectFit
+            preguntas[i].tf!.translatesAutoresizingMaskIntoConstraints = false
+            preguntas[i].tf!.isEnabled = true
+            qView.addSubview(preguntas[i].tf!)
+            NSLayoutConstraint.activate([
+                preguntas[i].tf!.leadingAnchor.constraint(equalTo: preguntas[i].lb!.trailingAnchor, constant: 20),
+                preguntas[i].tf!.topAnchor.constraint(equalTo: preguntas[i].lb!.topAnchor, constant: 0),
+                preguntas[i].tf!.widthAnchor.constraint(equalToConstant: 100)
+                ])
+        }
     }
     
     func getRandomNum() -> Int {
@@ -104,32 +217,68 @@ class ViewControllerPractica: UIViewController {
         if num.hasPrefix("var") {
             let num2 = num.dropFirst(3)
             return Int(arr[Int(num2)!].tf!.text!)!
-        } else {
+        } else if num.hasPrefix("cont") {
+            return cont
+        } else if num.hasPrefix("if_return") {
+            return if_return
+        }else {
             return Int(num)!
         }
     }
     
-    func getOpRes(p : [String]) -> String {
-        switch p[1] {
-        case "+":
-            var sum = 0
-            for i in 2..<p.count {
-                sum += getNumber(num: p[i])
+    
+    func getOpRes(p : Any) -> String {
+        if let pArr = p as? [Any] {
+            var acum = 0
+            switch "\(pArr[1])" {
+                case "+":
+                    acum = getNumber(num: getOpRes(p: pArr[0])) + getNumber(num: getOpRes(p: pArr[2]))
+                case "-":
+                    acum = getNumber(num: getOpRes(p: pArr[0])) - getNumber(num: getOpRes(p: pArr[2]))
+                case "*":
+                    acum = getNumber(num: getOpRes(p: pArr[0])) * getNumber(num: getOpRes(p: pArr[2]))
+                case "/":
+                    acum = getNumber(num: getOpRes(p: pArr[0])) / getNumber(num: getOpRes(p: pArr[2]))
+                default:
+                    return "1"
             }
-            return String(sum)
-        case "=":
-            return String(getNumber(num: p[2]))
-        default:
+            for index in stride(from: 3, to: pArr.count, by: 2){
+                switch "\(pArr[index])" {
+                    case "+":
+                        acum += getNumber(num: getOpRes(p: pArr[index+1]))
+                    case "-":
+                        acum -= getNumber(num: getOpRes(p: pArr[index+1]))
+                    case "*":
+                        acum *= getNumber(num: getOpRes(p: pArr[index+1]))
+                    case "/":
+                        acum /= getNumber(num: getOpRes(p: pArr[index+1]))
+                    default:
+                        return "1"
+                }
+            }
+            return String(acum)
+        } else if let pStr = p as? String {
+            return String(getNumber(num: pStr))
+        } else {
             return "1"
         }
     }
     
     
-    
     @IBAction func btRevisar(_ sender: UIButton) {
         
+        /*for i in 0...preguntas.count - 1 {
+           print(getOpRes(p: pasos[pasos.count-1].op[i]))
+            if preguntas[i].tf?.text == getOpRes(p: pasos[pasos.count-1].op[i]){
+                preguntas[i].tf?.textColor = .green
+            }
+            else {
+                preguntas[i].tf?.textColor = .red
+            }
+        }*/
+        
         /*if let _ = Int(tfPregunta1.text!) {
-            if tfPregunta1.text == getOpRes(p: pasos[pasos.count-1].op[0]){
+            if String(tfPregunta1.text!) == getOpRes(p: pasos[pasos.count-1].op[0]){
                 tfPregunta1.textColor = .green
             }
             else {

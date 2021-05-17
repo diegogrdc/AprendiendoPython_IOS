@@ -20,7 +20,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     /*var arr: [Linea] = []
     var pasos: [Paso] = []*/
     
-    var arr = [
+    /*var arr = [
         Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "    if n > 0:", hasTF: false, tf: nil, lb: nil),
         Linea(texto: "        n = n + 10", hasTF: false, tf: nil, lb: nil),
@@ -48,7 +48,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
         Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
         Paso(numLinea: 10, op: [["x",["var9","+",["10", "*", "if_return"]]]]),
-    ]
+    ]*/
     
     /*
     var arr = [
@@ -77,7 +77,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         Paso(numLinea: 8, op: [["x",["var7","-",["10", "*", "cont"]]]]),
     ]
     */
-    /*
+    
      
      var arr = [
          Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
@@ -105,9 +105,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
          Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
      ]
      
-     */
-    
-    
+     
     
     var vars: [String] = []
     
