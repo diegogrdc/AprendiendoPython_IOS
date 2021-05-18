@@ -33,6 +33,7 @@ class ViewControllerPractica: UIViewController {
     
     var cont = 0
     var if_return = 0
+    var currStep = -1
     
     var arr = [
         Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
@@ -51,13 +52,13 @@ class ViewControllerPractica: UIViewController {
     var pasos = [
         Paso(numLinea: 10, op: []),
         Paso(numLinea: 5, op: []),
-        Paso(numLinea: 6, op: [["a","=","var6"]]),
-        Paso(numLinea: 7, op: [["a","=","var6"], ["b","=","var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"]]),
-        Paso(numLinea: 0, op: [["first","=","var6"], ["second","=","var7"]]),
-        Paso(numLinea: 1, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
-        Paso(numLinea: 2, op: [["first","=","var6"], ["second","=","var7"], ["s", "+", "var6", "var7"]]),
-        Paso(numLinea: 8, op: [["a","=","var6"], ["b","=","var7"], ["c","+","var6", "var7"]])
+        Paso(numLinea: 6, op: [["a","var6"]]),
+        Paso(numLinea: 7, op: [["a","var6"], ["b","var7"]]),
+        Paso(numLinea: 8, op: [["a","var6"], ["b","var7"]]),
+        Paso(numLinea: 0, op: [["first","var6"], ["second","var7"]]),
+        Paso(numLinea: 1, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
+        Paso(numLinea: 2, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
+        Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
     ]
     
     var preguntas = [
@@ -89,11 +90,11 @@ class ViewControllerPractica: UIViewController {
         Paso(numLinea: 1, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[["var7","-",["10", "*", "cont"]],">","0"], [6, 6, 7]]),
         Paso(numLinea: 2, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[], [5, 5, 0]]),
         Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
-        Paso(numLinea: 8, op: [["x",["var7","-",["10", "*", "cont"]]]]),
+        Paso(numLinea: 8, op: [["y",["var7","-",["10", "*", "cont"]]]]),
     ]
     
     var preguntas = [
-        Pregunta(texto: "x = ?", tf: nil, lb: nil)
+        Pregunta(texto: "y = ?", tf: nil, lb: nil)
     ]*/
     
     /*var arr = [
@@ -123,11 +124,11 @@ class ViewControllerPractica: UIViewController {
         Paso(numLinea: 3, op: [], cond: [[], 8, 5]),
         Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
         Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
-        Paso(numLinea: 10, op: [["x",["var9","+",["10", "*", "if_return"]]]]),
+        Paso(numLinea: 10, op: [["y",["var9","+",["10", "*", "if_return"]]]]),
     ]
     
     var preguntas = [
-        Pregunta(texto: "x = ?", tf: nil, lb: nil)
+        Pregunta(texto: "y = ?", tf: nil, lb: nil)
     ]*/
 
     override func viewDidLoad() {
@@ -226,6 +227,28 @@ class ViewControllerPractica: UIViewController {
         }
     }
     
+    func evalCond(st : [Any]) -> Bool {
+        if st.count != 3 {
+            return true
+        }
+        let fst = getOpRes(p: st[0])
+        let snd = getOpRes(p: st[2])
+        switch "\(st[1])" {
+            case ">":
+                return fst > snd
+            case "<":
+                return fst < snd
+            case ">=":
+                return fst >= snd
+            case "<=":
+                return fst <= snd
+            case "==":
+                return fst == snd
+            default:
+                return true
+        }
+    }
+    
     
     func getOpRes(p : Any) -> String {
         if let pArr = p as? [Any] {
@@ -264,48 +287,69 @@ class ViewControllerPractica: UIViewController {
         }
     }
     
+    func simFwd() {
+        while currStep + 1 < pasos.count {
+            if currStep > -1 && pasos[currStep].cond != nil {
+                
+                // Si entra es while si no es if
+                if pasos[currStep].cond![1] is Array<Int> {
+                    if evalCond(st: pasos[currStep].cond![0] as! [Any]) {
+                        let nxt = pasos[currStep].cond![1] as! [Int]
+                        cont += (pasos[currStep].cond![0] as! [Any]).count > 0 ? 1 : 0
+                        currStep = nxt[1]
+                    }
+                    else {
+                        // Exit
+                        let nxt = pasos[currStep].cond![1] as! [Int]
+                        currStep = nxt[2]
+                    }
+                    
+                } else {
+                    if evalCond(st: pasos[currStep].cond![0] as! [Any]) {
+                        let nxt = pasos[currStep].cond![1] as! Int
+                        if (pasos[currStep].cond![0] as! [Any]).count != 0 {
+                            if_return = 1
+                        }
+                        currStep = nxt
+                    } else {
+                        let nxt = pasos[currStep].cond![2] as! Int
+                        if (pasos[currStep].cond![0] as! [Any]).count != 0 {
+                            if_return = -1
+                        }
+                        currStep = nxt
+                    }
+                    
+                }
+                
+            }
+            else {
+                currStep += 1
+            }
+        }
+    }
+    
     
     @IBAction func btRevisar(_ sender: UIButton) {
-        
-        /*for i in 0...preguntas.count - 1 {
-           print(getOpRes(p: pasos[pasos.count-1].op[i]))
-            if preguntas[i].tf?.text == getOpRes(p: pasos[pasos.count-1].op[i]){
-                preguntas[i].tf?.textColor = .green
+        simFwd()
+        let p = pasos[pasos.count-1].op 
+        for i in 0...preguntas.count - 1 {
+            if let _ = Int((preguntas[i].tf?.text!)!){
+                if preguntas[i].tf?.text == getOpRes(p: p[i][1]){
+                    preguntas[i].tf?.textColor = .green
+                }
+                else {
+                    preguntas[i].tf?.textColor = .red
+                }
+                preguntas[i].tf?.isEnabled = false
+                preguntas[i].tf?.backgroundColor = .clear
             }
             else {
-                preguntas[i].tf?.textColor = .red
-            }
-        }*/
-        
-        /*if let _ = Int(tfPregunta1.text!) {
-            if String(tfPregunta1.text!) == getOpRes(p: pasos[pasos.count-1].op[0]){
-                tfPregunta1.textColor = .green
-            }
-            else {
-                tfPregunta1.textColor = .red
+                let alert = UIAlertController(title: "Error", message: "Tienes que llenar el campo de la pregunta " + String(i+1) + " con números enteros", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
             }
         }
-        else {
-            let alert = UIAlertController(title: "Error", message: "Los datos tienen que ser numeros enteros", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
-        
-        if let _ = Int(tfPregunta2.text!){
-            if tfPregunta2.text == getOpRes(p: pasos[pasos.count-1].op[2]){
-                tfPregunta2.textColor = .green
-            }
-            else {
-                tfPregunta2.textColor = .red
-            }
-        }
-        else {
-            let alert = UIAlertController(title: "Error", message: "Los datos tienen que ser numeros enteros", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }*/
     }
     
     
