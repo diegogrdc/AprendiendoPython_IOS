@@ -79,8 +79,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
          Paso(numLinea: 1, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
          Paso(numLinea: 2, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
          Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
-     ]
-     */
+     ]*/
      
      
     
@@ -98,7 +97,6 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     func loadCodeView() {
         let templates = configValues.getPlist()
         chooseTemplate(withTemplates: templates)
-                
         for i in 0...arr.count - 1 {
             
             arr[i].lb = UILabel(frame: .zero);
