@@ -11,7 +11,9 @@ struct Template: Codable{
     
     struct simulation_steps: Codable {
         let line: Int
-        let operation: [[String]]
+        let hascond: Bool
+        let operation: String
+        let condition: String
     }
     
     struct textLine: Codable {
@@ -38,6 +40,7 @@ struct configValues {
             let decoder = PropertyListDecoder()
             return try decoder.decode([Template].self, from: data)
         } catch let err {
+            print(err)
             fatalError(err.localizedDescription)
         }
     }

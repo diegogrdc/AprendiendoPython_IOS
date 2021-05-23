@@ -7,6 +7,13 @@
 
 import UIKit
 
+extension String {
+  func toJSON() -> Any? {
+    guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
+    return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+  }
+}
+
 class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var codeView: UIView!
@@ -17,38 +24,8 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     var cont = 0
     var if_return = 0
     
-    /*var arr: [Linea] = []
-    var pasos: [Paso] = []*/
-    
-    /*var arr = [
-        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    if n > 0:", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "        n = n + 10", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    else:", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
-    ]
-    
-    var pasos = [
-        Paso(numLinea: 12, op: []),
-        Paso(numLinea: 8, op: []),
-        Paso(numLinea: 9, op: [["x","var9"]]),
-        Paso(numLinea: 10, op: [["x","var9"]]),
-        Paso(numLinea: 0, op: [["n","var9"]]),
-        Paso(numLinea: 1, op: [["n","var9"]], cond: [["var9",">","0"], 6, 8]),
-        Paso(numLinea: 2, op: [["n",["var9","+","10"]]], cond: [[], 9, 5]),
-        Paso(numLinea: 3, op: [], cond: [[], 8, 5]),
-        Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
-        Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
-        Paso(numLinea: 10, op: [["x",["var9","+",["10", "*", "if_return"]]]]),
-    ]*/
+    var arr: [Linea] = []
+    var pasos: [Paso] = []
     
     /*
     var arr = [
@@ -76,7 +53,6 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
         Paso(numLinea: 8, op: [["x",["var7","-",["10", "*", "cont"]]]]),
     ]
-    */
     
      
      var arr = [
@@ -104,6 +80,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
          Paso(numLinea: 2, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
          Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
      ]
+     */
      
      
     
@@ -115,9 +92,12 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*let templates = configValues.getPlist()
-        chooseTemplate(withTemplates: templates)*/
+        loadCodeView()
+    }
+    
+    func loadCodeView() {
+        let templates = configValues.getPlist()
+        chooseTemplate(withTemplates: templates)
                 
         for i in 0...arr.count - 1 {
             
@@ -158,9 +138,14 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
             }
             
         }
-        
-        
         // Do any additional setup after loading the view.
+    }
+    
+    func clearCodeView() {
+        codeView.subviews.forEach { view in
+            view.removeConstraints(view.constraints)
+            view.removeFromSuperview()
+        }
     }
     
     func getRandomNum() -> Int {
@@ -430,7 +415,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-    /*func chooseTemplate(withTemplates: [Template]) {
+    func chooseTemplate(withTemplates: [Template]) {
         let templateId = Int.random(in: 0..<withTemplates.count)
         
         for code in withTemplates[templateId].code {
@@ -438,13 +423,13 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         }
         
         for simulation in withTemplates[templateId].simulation {
-            if simulation.operation[0].count == 0 {
-                pasos.append(Paso(numLinea: simulation.line, op: []))
+            if !simulation.hascond {
+                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]]))
             } else {
-                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation))
+                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]], cond: simulation.condition.toJSON() as! [Any]))
             }
         }
-    }*/
+    }
         
     /*
     // MARK: - Navigation
