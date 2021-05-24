@@ -204,5 +204,207 @@
             </dict>
         </array>
     </dict>
+    <dict>
+        <key>id</key>
+        <integer>1</integer>
+        <key>title</key>
+        <string>simple 1</string>
+        <key>topic</key>
+        <string>basic</string>
+        <key>code</key>
+        <array>
+            <dict>
+                <key>line</key>
+                <string>def func(a, b):</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    a = a * 3</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    b = b - 1</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    c = a + b</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    return c</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>def main():</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    x = </string>
+                <key>hasTf</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    y = </string>
+                <key>hasTf</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    z = func(x, y)</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>main()</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+        </array>
+        <key>simulation</key>
+        <array>
+            <dict>
+                <key>line</key>
+                <integer>12</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>7</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>8</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>9</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"], ["y","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>10</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"], ["y","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>0</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a","var8"], ["b","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>1</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a",["var8","*","3"]], ["b","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>2</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a",["var8","*","3"]], ["b",["var9","-", "1"]]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>3</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a",["var8","*","3"]], ["b",["var9","-", "1"]],["c",[["var8","*","3"],"+",["var9","-", "1"]]]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>4</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a",["var8","*","3"]], ["b",["var9","-", "1"]],["c",[["var8","*","3"],"+",["var9","-", "1"]]]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>10</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"], ["b","var9"],["z",[["var8","*","3"],"+",["var9","-", "1"]]]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+        </array>
+    </dict>
 </array>
 </plist>

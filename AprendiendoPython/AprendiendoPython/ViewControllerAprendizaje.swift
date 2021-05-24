@@ -147,7 +147,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     }
     
     func getRandomNum() -> Int {
-        return Int.random(in: 1...100)
+        return Int.random(in: 1...15)
     }
     
     func resetStepVars() {
