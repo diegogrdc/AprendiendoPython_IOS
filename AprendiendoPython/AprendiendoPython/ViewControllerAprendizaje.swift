@@ -14,18 +14,22 @@ extension String {
   }
 }
 
-class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
 
     @IBOutlet weak var codeView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var fwdBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var chooseTempBtn: UIButton!
     
     var cont = 0
     var if_return = 0
     
     var arr: [Linea] = []
     var pasos: [Paso] = []
+    
+    var selectedTemplate = 1
     
     /*
     var arr = [
@@ -88,6 +92,8 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     var currStep = -1
     
     var isInEdit = false
+    
+    var templates : [Template] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +101,8 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     }
     
     func loadCodeView() {
-        let templates = configValues.getPlist()
-        chooseTemplate(withTemplates: templates)
+        templates = configValues.getPlist()
+        chooseTemplate(templateId: selectedTemplate)
         for i in 0...arr.count - 1 {
             
             arr[i].lb = UILabel(frame: .zero);
@@ -413,14 +419,13 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-    func chooseTemplate(withTemplates: [Template]) {
-        let templateId = Int.random(in: 0..<withTemplates.count)
+    func chooseTemplate(templateId: Int) {
         
-        for code in withTemplates[templateId].code {
+        for code in templates[templateId].code {
             arr.append(Linea(texto: code.line, hasTF: code.hasTf, tf: nil, lb: nil))
         }
         
-        for simulation in withTemplates[templateId].simulation {
+        for simulation in templates[templateId].simulation {
             if !simulation.hascond {
                 pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]]))
             } else {
@@ -428,7 +433,56 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
             }
         }
     }
+    
+    // MARK: - Picker
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return templates.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 60
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = UILabel()
+        label.text = templates[row].title
+        label.sizeToFit()
+        return label
+    }
+    
+    @IBAction func changeTemplate(_ sender: Any) {
+        let vc = UIViewController()
+        let pickerView = UIPickerView()
+        pickerView.dataSource = self
+        pickerView.delegate = self
         
+        
+        pickerView.selectRow(selectedTemplate, inComponent: 0, animated: false)
+        
+        vc.view.addSubview(pickerView)
+        
+        let alert = UIAlertController(title: "Cambia Código", message: "", preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.sourceView = chooseTempBtn
+        alert.popoverPresentationController?.sourceRect = chooseTempBtn.bounds
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (UIAlertAction) in }))
+        alert.addAction(UIAlertAction(title: "Seleccionar", style: .default, handler: { (UIAlertAction) in
+            self.selectedTemplate = pickerView.selectedRow(inComponent: 0)
+            let name = self.templates[pickerView.selectedRow(inComponent: 0)].title
+            self.chooseTempBtn.setTitle(name, for: .normal)
+            self.chooseTemplate(templateId: self.selectedTemplate)
+        }))
+        
+        
+        self.present(alert, animated: true, completion: nil)
+        print(pickerView.numberOfRows(inComponent: 0))
+    }
+    
     /*
     // MARK: - Navigation
 
