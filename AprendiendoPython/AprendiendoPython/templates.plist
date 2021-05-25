@@ -198,12 +198,14 @@
                 <key>hascond</key>
                 <false/>
                 <key>operation</key>
-                <string>[["y",["var9","+",["10", "*", "if_return"]]]]</string>
+                <string>[["x","var9"],["y",["var9","+",["10", "*", "if_return"]]]]</string>
                 <key>condition</key>
                 <string></string>
             </dict>
         </array>
     </dict>
+    
+    
     <dict>
         <key>id</key>
         <integer>1</integer>
@@ -404,6 +406,211 @@
                 <key>condition</key>
                 <string></string>
             </dict>
+        </array>
+    </dict>
+    
+    
+    <dict>
+        <key>id</key>
+        <integer>2</integer>
+        <key>title</key>
+        <string>while 1</string>
+        <key>topic</key>
+        <string>while</string>
+        <key>code</key>
+        <array>
+            <dict>
+                <key>line</key>
+                <string>def loop(a, b):</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    while a > 10:</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>        b = b + 1</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>        a = a - 1</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    return b</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>def main():</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    x = </string>
+                <key>hasTf</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    y = </string>
+                <key>hasTf</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>    z = loop(x, y)</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string></string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>line</key>
+                <string>main()</string>
+                <key>hasTf</key>
+                <false/>
+            </dict>
+        </array>
+        <key>simulation</key>
+        <array>
+            <dict>
+                <key>line</key>
+                <integer>12</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>7</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>8</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>9</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"],["y","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>10</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"],["y","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>0</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a","var8"],["b","var9"]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>1</integer>
+                <key>hascond</key>
+                <true/>
+                <key>operation</key>
+                <string>[["a",["var8","-","cont"]],["b",["var9","+","cont"]]]</string>
+                <key>condition</key>
+                <string>[[["var8","-","cont"],">","10"],[8,7,9]]</string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>2</integer>
+                <key>hascond</key>
+                <true/>
+                <key>operation</key>
+                <string>[["a",["var8","-","cont","+","1"]],["b",["var9","+","cont"]]]</string>
+                <key>condition</key>
+                <string>[[],[6,8,0]]</string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>3</integer>
+                <key>hascond</key>
+                <true/>
+                <key>operation</key>
+                <string>[["a",["var8","-","cont"]],["b",["var9","+","cont"]]]</string>
+                <key>condition</key>
+                <string>[[],[7,6,0]]</string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>4</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["a",["var8","-","cont"]],["b",["var9","+","cont"]]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            <dict>
+                <key>line</key>
+                <integer>10</integer>
+                <key>hascond</key>
+                <false/>
+                <key>operation</key>
+                <string>[["x","var8"],["y","var9"], ["z",["var9","+","cont"]]]</string>
+                <key>condition</key>
+                <string></string>
+            </dict>
+            
         </array>
     </dict>
 </array>

@@ -177,21 +177,22 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         if st.count != 3 {
             return true
         }
-        let fst = getOpRes(p: st[0])
-        let snd = getOpRes(p: st[2])
+        let fst : Int = Int(getOpRes(p: st[0]))!
+        let snd : Int = Int(getOpRes(p: st[2]))!
+        
         switch "\(st[1])" {
             case ">":
-                return fst > snd
+                return (fst > snd)
             case "<":
-                return fst < snd
+                return (fst < snd)
             case ">=":
-                return fst >= snd
+                return (fst >= snd)
             case "<=":
-                return fst <= snd
+                return (fst <= snd)
             case "==":
-                return fst == snd
+                return (fst == snd)
             default:
-                return true
+                return false
         }
     }
     
@@ -282,13 +283,17 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
                 arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
             }
             else {
+                arr[pasos[currStep].numLinea].lb!.backgroundColor = .clear
                 currStep -= 1
+                
+                if pasos[currStep].cond != nil &&
+                    pasos[currStep].cond![1] is Array<Int> {
+                    let aft = pasos[currStep].cond![1] as! [Int]
+                    currStep = aft[1]
+                }
                 
                 // Cambiar fondo
                 arr[pasos[currStep].numLinea].lb!.backgroundColor = .red
-                if currStep + 1 < pasos.count {
-                    arr[pasos[currStep + 1].numLinea].lb!.backgroundColor = .clear
-                }
                 
             }
             
