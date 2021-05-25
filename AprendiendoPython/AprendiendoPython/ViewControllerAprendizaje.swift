@@ -14,7 +14,7 @@ extension String {
   }
 }
 
-class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITableViewDelegate, ProtocolSelectTemplate {
     
 
     @IBOutlet weak var codeView: UIView!
@@ -97,11 +97,12 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        templates = configValues.getPlist()
         loadCodeView()
+        chooseTempBtn.setTitle(templates[selectedTemplate].title, for: .normal)
     }
     
     func loadCodeView() {
-        templates = configValues.getPlist()
         chooseTemplate(templateId: selectedTemplate)
         for i in 0...arr.count - 1 {
             
@@ -146,6 +147,11 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     }
     
     func clearCodeView() {
+        cont = 0
+        if_return = 0
+        vars = []
+        tableView.reloadData()
+        currStep = -1
         codeView.subviews.forEach { view in
             view.removeConstraints(view.constraints)
             view.removeFromSuperview()
@@ -421,6 +427,9 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     
     func chooseTemplate(templateId: Int) {
         
+        arr = []
+        pasos = []
+        
         for code in templates[templateId].code {
             arr.append(Linea(texto: code.line, hasTF: code.hasTf, tf: nil, lb: nil))
         }
@@ -429,68 +438,33 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
             if !simulation.hascond {
                 pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]]))
             } else {
-                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]], cond: simulation.condition.toJSON() as! [Any]))
+                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]], cond: simulation.condition.toJSON() as? [Any]))
             }
         }
     }
     
-    // MARK: - Picker
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return templates.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 60
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let label = UILabel()
-        label.text = templates[row].title
-        label.sizeToFit()
-        return label
-    }
-    
-    @IBAction func changeTemplate(_ sender: Any) {
-        let vc = UIViewController()
-        let pickerView = UIPickerView()
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        
-        
-        pickerView.selectRow(selectedTemplate, inComponent: 0, animated: false)
-        
-        vc.view.addSubview(pickerView)
-        
-        let alert = UIAlertController(title: "Cambia Código", message: "", preferredStyle: .actionSheet)
-        alert.popoverPresentationController?.sourceView = chooseTempBtn
-        alert.popoverPresentationController?.sourceRect = chooseTempBtn.bounds
-        
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (UIAlertAction) in }))
-        alert.addAction(UIAlertAction(title: "Seleccionar", style: .default, handler: { (UIAlertAction) in
-            self.selectedTemplate = pickerView.selectedRow(inComponent: 0)
-            let name = self.templates[pickerView.selectedRow(inComponent: 0)].title
-            self.chooseTempBtn.setTitle(name, for: .normal)
-            self.chooseTemplate(templateId: self.selectedTemplate)
-        }))
-        
-        
-        self.present(alert, animated: true, completion: nil)
-        print(pickerView.numberOfRows(inComponent: 0))
-    }
-    
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        let templateSelector = segue.destination as! ViewControllerTemplateSelector
+        templateSelector.selected = selectedTemplate
+        templateSelector.templates = templates
+        templateSelector.delegate = self
+        
+        templateSelector.preferredContentSize = CGSize(width: 375, height: 236)
+
     }
-    */
+    
+    func selectTemplate(position: Int) {
+        selectedTemplate = position
+        clearCodeView()
+        loadCodeView()
+        chooseTempBtn.setTitle(templates[position].title, for: .normal)
+    }
 
 }
