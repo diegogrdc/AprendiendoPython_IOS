@@ -34,106 +34,20 @@ class ViewControllerPractica: UIViewController {
     var cont = 0
     var if_return = 0
     var currStep = -1
-    
-    var arr = [
-        Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    s = first + second", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    return s", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    a = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    b = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    c = suma(a, b)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
-    ]
-    
-    var pasos = [
-        Paso(numLinea: 10, op: []),
-        Paso(numLinea: 5, op: []),
-        Paso(numLinea: 6, op: [["a","var6"]]),
-        Paso(numLinea: 7, op: [["a","var6"], ["b","var7"]]),
-        Paso(numLinea: 8, op: [["a","var6"], ["b","var7"]]),
-        Paso(numLinea: 0, op: [["first","var6"], ["second","var7"]]),
-        Paso(numLinea: 1, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
-        Paso(numLinea: 2, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
-        Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
-    ]
-    
-    var preguntas = [
-        Pregunta(texto: "a = ?", tf: nil, lb: nil),
-        Pregunta(texto: "b = ?", tf: nil, lb: nil),
-        Pregunta(texto: "c = ?", tf: nil, lb: nil)
-    ]
-    
-    /*var arr = [
-        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    while n > 0:", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
-    ]
-    
-    var pasos = [
-        Paso(numLinea: 10, op: []),
-        Paso(numLinea: 6, op: []),
-        Paso(numLinea: 7, op: [["x","var7"]]),
-        Paso(numLinea: 8, op: [["x","var7"]]),
-        Paso(numLinea: 0, op: [["n","var7"]]),
-        Paso(numLinea: 1, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[["var7","-",["10", "*", "cont"]],">","0"], [6, 6, 7]]),
-        Paso(numLinea: 2, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[], [5, 5, 0]]),
-        Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
-        Paso(numLinea: 8, op: [["y",["var7","-",["10", "*", "cont"]]]]),
-    ]
-    
-    var preguntas = [
-        Pregunta(texto: "y = ?", tf: nil, lb: nil)
-    ]*/
-    
-    /*var arr = [
-        Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    if n > 0:", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "        n = n + 10", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    else:", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
-        Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "", hasTF: false, tf: nil, lb: nil),
-        Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
-    ]
-    
-    var pasos = [
-        Paso(numLinea: 12, op: []),
-        Paso(numLinea: 8, op: []),
-        Paso(numLinea: 9, op: [["x","var9"]]),
-        Paso(numLinea: 10, op: [["x","var9"]]),
-        Paso(numLinea: 0, op: [["n","var9"]]),
-        Paso(numLinea: 1, op: [["n","var9"]], cond: [["var9",">","0"], 6, 8]),
-        Paso(numLinea: 2, op: [["n",["var9","+","10"]]], cond: [[], 9, 5]),
-        Paso(numLinea: 3, op: [], cond: [[], 8, 5]),
-        Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
-        Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
-        Paso(numLinea: 10, op: [["y",["var9","+",["10", "*", "if_return"]]]]),
-    ]
-    
-    var preguntas = [
-        Pregunta(texto: "y = ?", tf: nil, lb: nil)
-    ]*/
+    var arr: [Linea] = []
+    var pasos: [Paso] = []
+    var preguntas : [Pregunta] = []
+    var selectedTemplate = 0
+    var templates : [Template] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        templates = configValues.getPlist()
+        loadCodeView()
+    }
+    
+    func loadCodeView () {
+        chooseTemplate(templateId: selectedTemplate)
         for i in 0...arr.count - 1 {
             
             arr[i].lb = UILabel(frame: .zero);
@@ -171,7 +85,6 @@ class ViewControllerPractica: UIViewController {
                     arr[i].tf!.widthAnchor.constraint(equalToConstant: 100)
                 ])
             }
-            
         }
         
         for i in 0...preguntas.count - 1 {
@@ -207,6 +120,44 @@ class ViewControllerPractica: UIViewController {
                 preguntas[i].tf!.topAnchor.constraint(equalTo: preguntas[i].lb!.topAnchor, constant: 0),
                 preguntas[i].tf!.widthAnchor.constraint(equalToConstant: 100)
                 ])
+        }
+    }
+    
+    func chooseTemplate(templateId: Int) {
+        
+        arr = []
+        pasos = []
+        preguntas = []
+        
+        for code in templates[templateId].code {
+            arr.append(Linea(texto: code.line, hasTF: code.hasTf, tf: nil, lb: nil))
+        }
+        
+        for simulation in templates[templateId].simulation {
+            if !simulation.hascond {
+                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]]))
+            } else {
+                pasos.append(Paso(numLinea: simulation.line, op: simulation.operation.toJSON() as! [[Any]], cond: simulation.condition.toJSON() as? [Any]))
+            }
+        }
+        
+        for questions in templates[templateId].questions {
+            preguntas.append(Pregunta(texto: questions.line, tf: nil, lb: nil))
+        }
+        
+    }
+    
+    func clearCodeView() {
+        cont = 0
+        if_return = 0
+        currStep = -1
+        codeView.subviews.forEach { view in
+            view.removeConstraints(view.constraints)
+            view.removeFromSuperview()
+        }
+        qView.subviews.forEach { view in
+            view.removeConstraints(view.constraints)
+            view.removeFromSuperview()
         }
     }
     
@@ -352,6 +303,14 @@ class ViewControllerPractica: UIViewController {
         }
     }
     
+    @IBAction func btNext(_ sender: UIButton) {
+        if selectedTemplate < 7 {
+            selectedTemplate += 1
+            clearCodeView()
+            loadCodeView()
+        }
+    }
+    
     
     @IBAction func returnMenu(segue: UIStoryboardSegue) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -367,3 +326,99 @@ class ViewControllerPractica: UIViewController {
     */
 
 }
+
+/*var arr = [
+    Linea(texto: "def suma(first, second)", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    s = first + second", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    return s", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    a = ", hasTF: true, tf: nil, lb: nil),
+    Linea(texto: "    b = ", hasTF: true, tf: nil, lb: nil),
+    Linea(texto: "    c = suma(a, b)", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+]
+
+var pasos = [
+    Paso(numLinea: 10, op: []),
+    Paso(numLinea: 5, op: []),
+    Paso(numLinea: 6, op: [["a","var6"]]),
+    Paso(numLinea: 7, op: [["a","var6"], ["b","var7"]]),
+    Paso(numLinea: 8, op: [["a","var6"], ["b","var7"]]),
+    Paso(numLinea: 0, op: [["first","var6"], ["second","var7"]]),
+    Paso(numLinea: 1, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
+    Paso(numLinea: 2, op: [["first","var6"], ["second","var7"], ["s", ["var6", "+", "var7"]]]),
+    Paso(numLinea: 8, op: [["a","var6"], ["b","var7"], ["c",["var6","+", "var7"]]])
+]
+
+var preguntas = [
+    Pregunta(texto: "a = ?", tf: nil, lb: nil),
+    Pregunta(texto: "b = ?", tf: nil, lb: nil),
+    Pregunta(texto: "c = ?", tf: nil, lb: nil)
+]*/
+
+/*var arr = [
+    Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    while n > 0:", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
+    Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+]
+
+var pasos = [
+    Paso(numLinea: 10, op: []),
+    Paso(numLinea: 6, op: []),
+    Paso(numLinea: 7, op: [["x","var7"]]),
+    Paso(numLinea: 8, op: [["x","var7"]]),
+    Paso(numLinea: 0, op: [["n","var7"]]),
+    Paso(numLinea: 1, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[["var7","-",["10", "*", "cont"]],">","0"], [6, 6, 7]]),
+    Paso(numLinea: 2, op: [["n",["var7","-",["10", "*", "cont"]]]], cond: [[], [5, 5, 0]]),
+    Paso(numLinea: 3, op: [["n",["var7","-",["10", "*", "cont"]]]]),
+    Paso(numLinea: 8, op: [["y",["var7","-",["10", "*", "cont"]]]]),
+]
+
+var preguntas = [
+    Pregunta(texto: "y = ?", tf: nil, lb: nil)
+]*/
+
+/*var arr = [
+    Linea(texto: "def cond(n)", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    if n > 0:", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "        n = n + 10", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    else:", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "        n = n - 10", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    return n", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "def main()", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "    x = ", hasTF: true, tf: nil, lb: nil),
+    Linea(texto: "    y = cond(x)", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "", hasTF: false, tf: nil, lb: nil),
+    Linea(texto: "main()", hasTF: false, tf: nil, lb: nil)
+]
+
+var pasos = [
+    Paso(numLinea: 12, op: []),
+    Paso(numLinea: 8, op: []),
+    Paso(numLinea: 9, op: [["x","var9"]]),
+    Paso(numLinea: 10, op: [["x","var9"]]),
+    Paso(numLinea: 0, op: [["n","var9"]]),
+    Paso(numLinea: 1, op: [["n","var9"]], cond: [["var9",">","0"], 6, 8]),
+    Paso(numLinea: 2, op: [["n",["var9","+","10"]]], cond: [[], 9, 5]),
+    Paso(numLinea: 3, op: [], cond: [[], 8, 5]),
+    Paso(numLinea: 4, op: [["n",["var9","-","10"]]], cond: [[], 9, 5]),
+    Paso(numLinea: 5, op: [["n",["var9","+",["10", "*", "if_return"]]]], cond: [[], 10, 6, 8]),
+    Paso(numLinea: 10, op: [["y",["var9","+",["10", "*", "if_return"]]]]),
+]
+
+var preguntas = [
+    Pregunta(texto: "y = ?", tf: nil, lb: nil)
+]*/

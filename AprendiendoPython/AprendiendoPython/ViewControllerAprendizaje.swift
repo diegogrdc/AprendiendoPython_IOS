@@ -29,7 +29,7 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
     var arr: [Linea] = []
     var pasos: [Paso] = []
     
-    var selectedTemplate = 1
+    var selectedTemplate = 0
     
     /*
     var arr = [

@@ -203,6 +203,21 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>z = ?</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>id</key>
@@ -357,7 +372,19 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+		</array>
 	</dict>
+
 	<dict>
 		<key>id</key>
 		<integer>4</integer>
@@ -567,7 +594,23 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>z = ?</string>
+			</dict>
+		</array>
 	</dict>
+
 	<dict>
 		<key>id</key>
 		<integer>5</integer>
@@ -785,7 +828,35 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>z = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>p = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>q = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>r = ?</string>
+			</dict>
+		</array>
 	</dict>
+
 	<dict>
 		<key>id</key>
 		<integer>0</integer>
@@ -987,7 +1058,19 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+		</array>
 	</dict>
+
 	<dict>
 		<key>id</key>
 		<integer>7</integer>
@@ -1205,7 +1288,23 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>z = ?</string>
+			</dict>
+		</array>
 	</dict>
+
 	<dict>
 		<key>id</key>
 		<integer>2</integer>
@@ -1407,7 +1506,23 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>z = ?</string>
+			</dict>
+		</array>
 	</dict>
+
 	<dict>
 		<key>id</key>
 		<integer>6</integer>
@@ -1607,6 +1722,21 @@
 				<string>[[&quot;x&quot;,&quot;var8&quot;],[&quot;y&quot;,&quot;var9&quot;], [&quot;z&quot;,[&quot;var9&quot;,&quot;-&quot;,[&quot;cont&quot;,&quot;*&quot;,&quot;2&quot;]]]]</string>
 				<key>condition</key>
 				<string></string>
+			</dict>
+		</array>
+		<key>questions</key>
+		<array>
+			<dict>
+				<key>line</key>
+				<string>x = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>y = ?</string>
+			</dict>
+			<dict>
+				<key>line</key>
+				<string>z = ?</string>
 			</dict>
 		</array>
 	</dict>

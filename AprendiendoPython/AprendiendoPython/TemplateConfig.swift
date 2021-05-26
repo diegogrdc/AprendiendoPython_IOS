@@ -21,11 +21,16 @@ struct Template: Codable{
         let hasTf: Bool
     }
     
+    struct qLine : Codable {
+        let line : String
+    }
+    
     let id: Int
     let title: String
     let topic: String
     let code: [textLine]
     let simulation: [simulation_steps]
+    let questions : [qLine]
 }
     
 
