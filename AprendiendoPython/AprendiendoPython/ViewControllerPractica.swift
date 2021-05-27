@@ -162,7 +162,7 @@ class ViewControllerPractica: UIViewController {
     }
     
     func getRandomNum() -> Int {
-        return Int.random(in: 1...100)
+        return Int.random(in: 1...15)
     }
     
     func getNumber(num: String) -> Int {

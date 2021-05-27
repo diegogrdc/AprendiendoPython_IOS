@@ -15,6 +15,7 @@
 		545C0B6F262F7B5B00C7C940 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545C0B6D262F7B5B00C7C940 /* LaunchScreen.storyboard */; };
 		545C0B79262F849200C7C940 /* ViewControllerPractica.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545C0B78262F849200C7C940 /* ViewControllerPractica.swift */; };
 		545C0B7C262F86C000C7C940 /* ViewControllerAprendizaje.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545C0B7B262F86C000C7C940 /* ViewControllerAprendizaje.swift */; };
+		545FB641265F358D00C0D65A /* ViewControllerCreditos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545FB640265F358D00C0D65A /* ViewControllerCreditos.swift */; };
 		54E9E47D2639F7A100DAA853 /* TemplateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9E47C2639F7A100DAA853 /* TemplateConfig.swift */; };
 		54E9E4802639F7AE00DAA853 /* templates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54E9E47F2639F7AE00DAA853 /* templates.plist */; };
 		C955474B265CA071007BEC07 /* ViewControllerTemplateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C955474A265CA071007BEC07 /* ViewControllerTemplateSelector.swift */; };
@@ -31,6 +32,7 @@
 		545C0B70262F7B5B00C7C940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		545C0B78262F849200C7C940 /* ViewControllerPractica.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPractica.swift; sourceTree = "<group>"; };
 		545C0B7B262F86C000C7C940 /* ViewControllerAprendizaje.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAprendizaje.swift; sourceTree = "<group>"; };
+		545FB640265F358D00C0D65A /* ViewControllerCreditos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCreditos.swift; sourceTree = "<group>"; };
 		54E9E47C2639F7A100DAA853 /* TemplateConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateConfig.swift; sourceTree = "<group>"; };
 		54E9E47F2639F7AE00DAA853 /* templates.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = templates.plist; sourceTree = "<group>"; };
 		C955474A265CA071007BEC07 /* ViewControllerTemplateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTemplateSelector.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				545C0B64262F7B5900C7C940 /* SceneDelegate.swift */,
 				545C0B66262F7B5900C7C940 /* ViewController.swift */,
 				545C0B68262F7B5900C7C940 /* Main.storyboard */,
+				545FB640265F358D00C0D65A /* ViewControllerCreditos.swift */,
 				C955474A265CA071007BEC07 /* ViewControllerTemplateSelector.swift */,
 				545C0B7B262F86C000C7C940 /* ViewControllerAprendizaje.swift */,
 				545C0B78262F849200C7C940 /* ViewControllerPractica.swift */,
@@ -156,6 +159,7 @@
 				545C0B67262F7B5900C7C940 /* ViewController.swift in Sources */,
 				C955474B265CA071007BEC07 /* ViewControllerTemplateSelector.swift in Sources */,
 				545C0B7C262F86C000C7C940 /* ViewControllerAprendizaje.swift in Sources */,
+				545FB641265F358D00C0D65A /* ViewControllerCreditos.swift in Sources */,
 				545C0B79262F849200C7C940 /* ViewControllerPractica.swift in Sources */,
 				545C0B63262F7B5900C7C940 /* AppDelegate.swift in Sources */,
 				545C0B65262F7B5900C7C940 /* SceneDelegate.swift in Sources */,
@@ -312,7 +316,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = diego.AprendiendoPython;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.itesmalumnos.AprendiendoPython;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -330,7 +334,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = diego.AprendiendoPython;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.itesmalumnos.AprendiendoPython;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;

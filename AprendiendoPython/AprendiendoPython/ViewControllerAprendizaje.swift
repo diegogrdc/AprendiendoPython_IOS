@@ -170,6 +170,9 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
                 vars.append("\(p[0]): \(getOpRes(p: p[1]))")
             }
             tableView.reloadData()
+        } else {
+            vars = []
+            tableView.reloadData()
         }
     }
     
@@ -383,7 +386,14 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
                 sender.setTitle("Editar", for: .normal)
                 fwdBtn.isHidden = false
                 backBtn.isHidden = false
+                if currStep >= 0 {
+                    arr[pasos[currStep].numLinea].lb!.backgroundColor = .clear
+                }
+                currStep = -1
+                cont = 0
+                if_return = 0
                 resetStepVars()
+                
             } else {
                 let alert = UIAlertController(title: "Error", message: "Los datos tienen que ser numeros enteros", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
