@@ -39,7 +39,15 @@ class ViewControllerPractica: UIViewController {
     var preguntas : [Pregunta] = []
     var selectedTemplate = 0
     var templates : [Template] = []
-
+    var correct = 0
+    var wrong = 0
+    @IBOutlet weak var btNext: UIButton!
+    @IBOutlet weak var lbNumPreg: UILabel!
+    @IBOutlet weak var lbCalif: UILabel!
+    @IBOutlet weak var lbBuenas: UILabel!
+    @IBOutlet weak var lbMalas: UILabel!
+    @IBOutlet weak var btRevisar: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         templates = configValues.getPlist()
@@ -47,6 +55,10 @@ class ViewControllerPractica: UIViewController {
     }
     
     func loadCodeView () {
+        if selectedTemplate == 7 {
+            btNext.isHidden = true
+        }
+        lbNumPreg.text = String(selectedTemplate+1) + " de 8"
         chooseTemplate(templateId: selectedTemplate)
         for i in 0...arr.count - 1 {
             
@@ -282,14 +294,18 @@ class ViewControllerPractica: UIViewController {
     
     @IBAction func btRevisar(_ sender: UIButton) {
         simFwd()
+        let buenas = Int(lbBuenas.text!)
+        let malas = Int(lbMalas.text!)
         let p = pasos[pasos.count-1].op 
         for i in 0...preguntas.count - 1 {
             if let _ = Int((preguntas[i].tf?.text!)!){
-                if preguntas[i].tf?.text == getOpRes(p: p[i][1]){
+                if preguntas[i].tf?.text == getOpRes(p: p[i][1]) && preguntas[i].tf?.backgroundColor != .clear{
                     preguntas[i].tf?.textColor = .green
+                    correct += 1
                 }
-                else {
+                else if preguntas[i].tf?.backgroundColor != .clear{
                     preguntas[i].tf?.textColor = .red
+                    wrong += 1
                 }
                 preguntas[i].tf?.isEnabled = false
                 preguntas[i].tf?.backgroundColor = .clear
@@ -301,20 +317,54 @@ class ViewControllerPractica: UIViewController {
                 present(alert, animated: true, completion: nil)
             }
         }
+        if correct + wrong == preguntas.count{
+            lbBuenas.text = String(buenas!+correct)
+            lbMalas.text = String(malas!+wrong)
+            btRevisar.isHidden = true
+            if selectedTemplate == 7 {
+                lbCalif.text = "Calificación " + String(Float(buenas! + correct)/Float(buenas! + malas! + correct + wrong)*Float(100)) + "%"
+            }
+        }
     }
     
     @IBAction func btNext(_ sender: UIButton) {
-        if selectedTemplate < 7 {
+        var complete = false
+        if correct + wrong == preguntas.count {
+            complete = true
+        }
+        if selectedTemplate < 7 && complete {
+            correct = 0
+            wrong = 0
             selectedTemplate += 1
             clearCodeView()
             loadCodeView()
+            btRevisar.isHidden = false
+        }
+        else {
+            let alert = UIAlertController(title: "Error", message: "Tienes que contestar todas las preguntas", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
         }
     }
     
     
     @IBAction func returnMenu(segue: UIStoryboardSegue) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        if selectedTemplate == 7 && correct + wrong != preguntas.count{
+            let alert = UIAlertController(title: "Error", message: "Tienes que contestar todas las preguntas del último ejercicio para poder regresar", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+        else{
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
+    
+    @IBAction func quitarTec(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     /*
     // MARK: - Navigation
 
