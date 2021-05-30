@@ -6,7 +6,7 @@
 		<key>id</key>
 		<integer>1</integer>
 		<key>title</key>
-		<string>simple 1</string>
+		<string>funciones ejercicio 1</string>
 		<key>topic</key>
 		<string>basic</string>
 		<key>code</key>
@@ -223,7 +223,7 @@
 		<key>id</key>
 		<integer>3</integer>
 		<key>title</key>
-		<string>simple 2</string>
+		<string>funciones ejercicio 2</string>
 		<key>topic</key>
 		<string>basic</string>
 		<key>code</key>
@@ -388,7 +388,7 @@
 		<key>id</key>
 		<integer>4</integer>
 		<key>title</key>
-		<string>simple 3</string>
+		<string>funciones ejercicio 3</string>
 		<key>topic</key>
 		<string>basic</string>
 		<key>code</key>
@@ -613,7 +613,7 @@
 		<key>id</key>
 		<integer>5</integer>
 		<key>title</key>
-		<string>simple 4</string>
+		<string>funciones ejercicio 4</string>
 		<key>topic</key>
 		<string>basic</string>
 		<key>code</key>
@@ -858,7 +858,7 @@
 		<key>id</key>
 		<integer>0</integer>
 		<key>title</key>
-		<string>if 1</string>
+		<string>if ejercicio 1</string>
 		<key>topic</key>
 		<string>if</string>
 		<key>code</key>
@@ -1071,7 +1071,7 @@
 		<key>id</key>
 		<integer>7</integer>
 		<key>title</key>
-		<string>if 2</string>
+		<string>if ejercicio 2</string>
 		<key>topic</key>
 		<string>if</string>
 		<key>code</key>
@@ -1304,7 +1304,7 @@
 		<key>id</key>
 		<integer>2</integer>
 		<key>title</key>
-		<string>while 1</string>
+		<string>while ejercicio 1</string>
 		<key>topic</key>
 		<string>while</string>
 		<key>code</key>
@@ -1521,7 +1521,7 @@
 		<key>id</key>
 		<integer>6</integer>
 		<key>title</key>
-		<string>while 2</string>
+		<string>while ejercicio 2</string>
 		<key>topic</key>
 		<string>while</string>
 		<key>code</key>

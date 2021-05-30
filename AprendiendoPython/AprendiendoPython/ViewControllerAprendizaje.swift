@@ -481,5 +481,9 @@ class ViewControllerAprendizaje: UIViewController, UITableViewDataSource, UITabl
         loadCodeView()
         chooseTempBtn.setTitle(templates[position].title, for: .normal)
     }
+    
+    @IBAction func quitarTec(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
 
 }

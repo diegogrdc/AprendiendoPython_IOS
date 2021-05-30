@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -23,7 +23,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Python" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1he-cq-uHZ">
                                         <rect key="frame" x="382" y="117" width="260" height="95.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="80"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="78"/>
                                         <color key="textColor" red="1" green="0.90980392160000001" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -54,12 +54,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHz-Gd-o49">
-                                        <rect key="frame" x="20" y="664" width="214" height="84"/>
+                                        <rect key="frame" x="8" y="664" width="239" height="84"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                         <color key="tintColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Créditos"/>
+                                        <state key="normal" title=" Créditos "/>
                                         <connections>
                                             <segue destination="fbf-6Y-kfr" kind="presentation" modalPresentationStyle="fullScreen" id="b1W-qh-kpI"/>
                                         </connections>
@@ -102,40 +102,62 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NxX-tC-qCh">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sc5-42-MJL">
-                                        <rect key="frame" x="381" y="676" width="190" height="72"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <color key="tintColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Regresar"/>
-                                        <connections>
-                                            <action selector="returnMenuWithSegue:" destination="fbf-6Y-kfr" eventType="touchUpInside" id="6Am-BO-c3w"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="19" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-HD-dyL">
-                                        <rect key="frame" x="56" y="20" width="913" height="627"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="tintColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                        <mutableString key="text">Aprendiendo Python ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Febrero Junio de 2021, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74U-Vr-uk1">
+                                        <rect key="frame" x="70" y="70" width="884" height="478"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="18" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J91-Md-APs">
+                                                <rect key="frame" x="28" y="28" width="836" height="422"/>
+                                                <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <mutableString key="text">Aprendiendo Python ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Febrero Junio de 2021, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.
 
 Desarrolladores: 
 Daniel Treviño Quiroga
-Diego García Rodríguez José Ernesto García Torales
+Diego García Rodríguez del Campo José Ernesto García Torales
 Javier Alejandro Domene Reyes
 
 
 Aprendiendo Python se distribuye como está de manera gratuita y se prohíbe su distribución y uso con fines de lucro.</mutableString>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                        <color key="textColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <color key="textColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <string key="userLabel">Aprendiendo Python ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Febrero Junio de 2021, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.  Desarrolladores:  Daniel Treviño Quiroga Diego García Rodríguez del Campo José Ernesto García Torales Javier Alejandro Domene Reyes   Aprendiendo Python se distribuye como está de manera gratuita y se prohíbe su distribución y uso con fines de lucro.</string>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="J91-Md-APs" secondAttribute="trailing" constant="20" symbolic="YES" id="0g8-lA-51a"/>
+                                            <constraint firstItem="J91-Md-APs" firstAttribute="top" secondItem="74U-Vr-uk1" secondAttribute="top" constant="28" id="6Zj-Az-3d8"/>
+                                            <constraint firstItem="J91-Md-APs" firstAttribute="leading" secondItem="74U-Vr-uk1" secondAttribute="leading" constant="28" id="baP-Ql-m09"/>
+                                            <constraint firstAttribute="bottom" secondItem="J91-Md-APs" secondAttribute="bottom" constant="28" id="c1o-wH-5cN"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sc5-42-MJL">
+                                        <rect key="frame" x="406.5" y="608" width="211" height="72"/>
+                                        <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="WML-Hr-YU6"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="72" id="zxX-ej-pqd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <color key="tintColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title=" Regresar "/>
+                                        <connections>
+                                            <action selector="returnMenuWithSegue:" destination="fbf-6Y-kfr" eventType="touchUpInside" id="6Am-BO-c3w"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.41176470590000003" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Sc5-42-MJL" secondAttribute="trailing" constant="20" symbolic="YES" id="2P7-ex-wGp"/>
+                                    <constraint firstItem="Sc5-42-MJL" firstAttribute="top" secondItem="74U-Vr-uk1" secondAttribute="bottom" constant="60" id="TGj-2M-Gca"/>
+                                    <constraint firstAttribute="bottom" secondItem="74U-Vr-uk1" secondAttribute="bottom" constant="220" id="ZHN-II-syN"/>
+                                    <constraint firstItem="74U-Vr-uk1" firstAttribute="leading" secondItem="NxX-tC-qCh" secondAttribute="leading" constant="70" id="bBD-Nv-5hX"/>
                                     <constraint firstAttribute="height" constant="768" id="cxf-nI-5kE"/>
+                                    <constraint firstItem="Sc5-42-MJL" firstAttribute="centerX" secondItem="74U-Vr-uk1" secondAttribute="centerX" id="hb2-eY-4hA"/>
                                     <constraint firstAttribute="width" constant="1024" id="iVF-yC-wkK"/>
+                                    <constraint firstItem="74U-Vr-uk1" firstAttribute="top" secondItem="NxX-tC-qCh" secondAttribute="top" constant="70" id="lwJ-bb-V3i"/>
+                                    <constraint firstAttribute="trailing" secondItem="74U-Vr-uk1" secondAttribute="trailing" constant="70" id="sMf-wO-Gc5"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -338,7 +360,7 @@ Aprendiendo Python se distribuye como está de manera gratuita y se prohíbe su 
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <state key="normal" title="Regresar"/>
+                                        <state key="normal" title=" Regresar "/>
                                         <connections>
                                             <action selector="returnMenuWithSegue:" destination="52q-AD-LrM" eventType="touchUpInside" id="z2k-60-rAo"/>
                                         </connections>
@@ -389,7 +411,7 @@ Aprendiendo Python se distribuye como está de manera gratuita y se prohíbe su 
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYA-KU-lM2">
-                                        <rect key="frame" x="20" y="20" width="259" height="48"/>
+                                        <rect key="frame" x="20" y="20" width="637" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title=" Ejercicio 1">
@@ -404,21 +426,25 @@ Aprendiendo Python se distribuye como está de manera gratuita y se prohíbe su 
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raw-BP-B0e">
-                                        <rect key="frame" x="286" y="654" width="189" height="79"/>
+                                        <rect key="frame" x="275" y="654" width="211" height="79"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <state key="normal" title="Aleatorio"/>
+                                        <state key="normal" title=" Aleatorio "/>
                                         <connections>
                                             <action selector="generateRandomTF:" destination="52q-AD-LrM" eventType="touchUpInside" id="Le3-m0-maH"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529411764706" green="0.41176470588235292" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="768" id="ggB-Pn-jKK"/>
                                     <constraint firstAttribute="width" constant="1024" id="tGZ-nT-o73"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="61i-fY-RVb" appends="YES" id="duF-R6-9tv"/>
+                                </connections>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Rbh-Iq-n2F"/>
@@ -437,6 +463,11 @@ Aprendiendo Python se distribuye como está de manera gratuita y se prohíbe su 
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3e-Lp-zSt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="61i-fY-RVb">
+                    <connections>
+                        <action selector="quitarTec:" destination="52q-AD-LrM" id="IHH-jp-eFT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="998.43749999999989" y="566.40625"/>
         </scene>
